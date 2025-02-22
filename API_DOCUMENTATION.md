@@ -132,10 +132,4 @@ The application runs on `http://localhost:8080` by default.
 
 ---
 
-## Contact
 
-For any questions or issues regarding the API, please contact:
-- **Name**: [Your Name]
-- **Email**: your.email@example.com
-
----
