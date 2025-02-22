@@ -1,0 +1,141 @@
+
+Currency Converter API Documentation
+====================================
+
+Base URL:
+---------
+http://localhost:8080
+
+Endpoints:
+----------
+
+1. Get Exchange Rates
+----------------------
+URL: /rates
+Method: GET
+Description: Fetch the latest exchange rates for a given base currency. If no base currency is provided, it defaults to USD.
+
+Request Parameters:
+- base (String, Optional, Default: USD): The base currency code (e.g., USD, EUR).
+
+Example Request:
+GET /api/rates?base=USD
+
+Example Response:
+Status Code: 200 OK
+{
+    "base": "USD",
+    "rates": {
+        "EUR": 0.85,
+        "GBP": 0.75,
+        "INR": 83.5,
+        "AUD": 1.5
+    }
+}
+
+Error Responses:
+- Status Code: 400 Bad Request
+  {
+      "error": "Invalid base currency code"
+  }
+- Status Code: 500 Internal Server Error
+  {
+      "error": "Failed to fetch exchange rates from the external API"
+  }
+
+
+2. Convert Currency
+--------------------
+URL: /convert
+Method: POST
+Description: Convert an amount from one currency to another using real-time exchange rates.
+
+Request Body:
+{
+    "from": "USD",
+    "to": "EUR",
+    "amount": 100
+}
+
+Example Request:
+POST /api/convert
+{
+    "from": "USD",
+    "to": "EUR",
+    "amount": 100
+}
+
+Example Response:
+Status Code: 200 OK
+{
+    "from": "USD",
+    "to": "EUR",
+    "amount": 100,
+    "convertedAmount": 85.0
+}
+
+Error Responses:
+- Status Code: 400 Bad Request
+  {
+      "error": "Invalid currency code: XYZ"
+  }
+- Status Code: 500 Internal Server Error
+  {
+      "error": "Failed to fetch exchange rates from the external API"
+  }
+
+
+Error Handling:
+---------------
+- Invalid Currency Codes:
+  The API returns a 400 Bad Request with an error message indicating the issue.
+- External API Unavailability:
+  The API returns a 500 Internal Server Error if the external currency exchange API is down.
+
+
+Examples:
+---------
+
+1. Fetch Exchange Rates
+------------------------
+Request:
+GET /api/rates?base=EUR
+
+Response:
+{
+    "base": "EUR",
+    "rates": {
+        "USD": 1.12,
+        "GBP": 0.88,
+        "INR": 90.3,
+        "AUD": 1.6
+    }
+}
+
+
+2. Convert Currency
+--------------------
+Request:
+POST /convert
+{
+    "from": "USD",
+    "to": "INR",
+    "amount": 50
+}
+
+Response:
+{
+    "from": "USD",
+    "to": "INR",
+    "amount": 50,
+    "convertedAmount": 4175.0
+}
+
+
+Running Locally:
+----------------
+1. Start the Spring Boot application.
+2. Access the API at http://localhost:8080.
+
+
+
